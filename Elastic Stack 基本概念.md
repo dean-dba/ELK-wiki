@@ -43,4 +43,28 @@
 #### Elasticsearch 倒排索引结构
 ![Elasticsearch 倒排索引数据结构](images/倒排索引数据结构.png)
 
+#### Elasticsearch 节点角色类型
+- **master：候选主节点，简称：m，作用：可以被选为主节点的节点**
+- **data：数据节点，简称：d，作用：保存数据并执行CRUD、搜索、聚合的节点**
+- **data_content：内容数据节点，简称：s，作用：负责存储、搜索的数据节点**
+- **data_hot：热数据节点，简称：h，作用：最近、最常访问的数据节点，此节点必须与data_content角色一起使用**
+- **data_warm：温数据节点，简称：w，作用：访问频次低、很少更新数据节点，此节点必须与data_content角色一起使用**
+- **data_cold：冷数据节点，简称：c，作用：不经常访问、通常不更新的数据节点，此节点必须与data_content角色一起使用**
+- **data_frozen：冻结数据节点（只读、归档数据），简称：f，作用：很少访问、从不更新的数据节点，此节点必须与data_content角色一起使用**
+- **ingest：摄取节点（处理数据管道），简称：i，作用：执行由预处理管道组成的预处理任务，比如ETL**
+- **remote_cluster_client：远程集群客户端节点，简称：r，作用：用于跨集群检索、跨集群复制**
+- **l：机器学习节点，简称：l，作用：运行job并处理机器学习API请求**
+- **transform：转换节点，简称：t，作用：运行转换并处理转换API请求**
+- **voting_only：仅投票主节点（7.3+），简称：v，作用：仅参与投票选举master的节点，自己不能成为主节点**
+- **coordinating_only：仅协调节点（不配置任何角色时），简称："-"，作用：负责路由分发请求、聚拢（或叫作收集，可理解为分发的反过程）搜索或聚合结果**
+
+#### Elasticsearch 内置用户(elasticsearch-reset-password：用于生成、修改用户密码的内置工具)
+- **elastic：ES超级用户**
+- **kibana_system：Kibana 与 Elasticsearch连接和通信的用户**
+- **logstash_system：Logstash 与 Elasticsearch中存储监控信息时使用的用户**
+- **beats_system：Beats 与 Elasticsearch 中存储监控信息时使用的用户**
+- **apm_system：APM服务器 与 Elasticsearch 中存储监控信息时使用的用户**
+- **remote_monitoring_user：Metricbeat 在 Elasticsearch 中收集和存储监控信息时使用的用户。它具有 remote_monitoring_agent 和 remote_monitoring_collector 内置角色**
+
+#### Elasticsearch JVM堆内内存："-Xms、-Xmx"，存储索引中的文档数据、聚合计算的中间结果  通过垃圾回收器(GC)进行回收，设置为系统物理内存的 50%，但绝对不要超过 32GB，因为64位系统中，如果堆内存小于32GB，JVM 可以使用内存指针压缩技术（Compressed OOPs），节省大量内存并提升性能。超过这个阈值，优势就会丧失
 
