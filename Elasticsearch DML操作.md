@@ -92,10 +92,10 @@ POST _reindex
 
 ES 默认脚本：painless，ctx._source(context source)：当前文档的原始数据
 ```
-  "script": {	
-    "lang": "painless",
-    "source": "ctx._source.currency = params.new_value",
-    "params": {"new_value": "USA"}
+"script": {	
+  "lang": "painless",
+  "source": "ctx._source.currency = params.new_value",
+  "params": {"new_value": "USA"}
 ```
 
 ##### 至此，Elasticsearch DML操作就介绍完成了，请开始你的表演吧！
